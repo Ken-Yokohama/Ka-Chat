@@ -1,12 +1,20 @@
 import React, { useState } from "react";
+import { ChatHeading, ChatInput, ChatMain } from "../components";
 
 function ChatContainer({ showMenu, setShowMenu }) {
     return (
         <div
-            style={{ height: "100vh", width: "100%" }}
+            style={{
+                height: "100vh",
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+            }}
             className={showMenu ? "chat-container" : ""}
         >
-            ChatContainer
+            <ChatHeading />
+            <ChatMain />
+            <ChatInput />
         </div>
     );
 }
