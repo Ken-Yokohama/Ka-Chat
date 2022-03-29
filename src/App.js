@@ -1,9 +1,15 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
+import { Main } from "./containers";
+import { Login } from "./pages";
 
 function App() {
     return (
         <div>
-            <h1>Hello World</h1>
+            <Routes>
+                <Route path="/*" element=<Main /> />
+                <Route path="/login" element=<Login /> />
+            </Routes>
         </div>
     );
 }
