@@ -1,12 +1,52 @@
-import { Box, Button, Paper } from "@mui/material";
+import { Box, Button, Paper, FormHelperText } from "@mui/material";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+} from "firebase/auth";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { auth, db } from "../firebase-config";
 
 function Login(props) {
     const [toggleLogin, setToggleLogin] = useState(true);
 
     const handleToggleLogin = () => {
         setToggleLogin((prevValue) => !prevValue);
+    };
+
+    const [loginEmail, setLoginEmail] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
+    const [loginError, setLoginError] = useState("");
+
+    const [registerEmail, setRegisterEmail] = useState("");
+    const [registerPassword, setRegisterPassword] = useState("");
+    const [registerError, setRegisterError] = useState("");
+
+    const registerUser = async () => {
+        try {
+            const userCred = await createUserWithEmailAndPassword(
+                auth,
+                registerEmail,
+                registerPassword
+            );
+            const specificUserDoc = doc(db, "users", userCred?.user?.uid);
+            await setDoc(specificUserDoc, {
+                user: registerEmail,
+                timestamp: serverTimestamp(),
+                avatar: "",
+            });
+        } catch (err) {
+            setRegisterError(err.message);
+        }
+    };
+
+    const loginUser = async () => {
+        try {
+            await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+        } catch (err) {
+            setLoginError(err.message);
+        }
     };
 
     return (
@@ -47,17 +87,27 @@ function Login(props) {
                                 borderRadius: "1rem",
                                 margin: "0 1rem",
                             }}
+                            onChange={(e) => {
+                                setLoginEmail(e.target.value);
+                            }}
                         />{" "}
                         <input
-                            type="text"
+                            type="password"
                             placeholder="Password"
                             style={{
                                 padding: "1rem",
                                 borderRadius: "1rem",
                                 margin: "0 1rem",
                             }}
+                            onChange={(e) => {
+                                setLoginPassword(e.target.value);
+                            }}
                         />
-                        <Button sx={{ margin: "0 1rem" }} variant="contained">
+                        <Button
+                            sx={{ margin: "0 1rem" }}
+                            variant="contained"
+                            onClick={loginUser}
+                        >
                             SIGN IN
                         </Button>
                         <Button
@@ -83,6 +133,11 @@ function Login(props) {
                         >
                             Don't have an account? Register
                         </h6>
+                        {loginError && (
+                            <FormHelperText error sx={{ margin: "0 1rem" }}>
+                                {loginError}
+                            </FormHelperText>
+                        )}
                     </Box>
                 </Paper>
             )}
@@ -118,17 +173,27 @@ function Login(props) {
                                 borderRadius: "1rem",
                                 margin: "0 1rem",
                             }}
+                            onChange={(e) => {
+                                setRegisterEmail(e.target.value);
+                            }}
                         />{" "}
                         <input
-                            type="text"
+                            type="password"
                             placeholder="Password"
                             style={{
                                 padding: "1rem",
                                 borderRadius: "1rem",
                                 margin: "0 1rem",
                             }}
+                            onChange={(e) => {
+                                setRegisterPassword(e.target.value);
+                            }}
                         />
-                        <Button sx={{ margin: "0 1rem" }} variant="contained">
+                        <Button
+                            sx={{ margin: "0 1rem" }}
+                            variant="contained"
+                            onClick={registerUser}
+                        >
                             Register
                         </Button>
                         <h6
@@ -143,6 +208,11 @@ function Login(props) {
                         >
                             Already have an account? Login
                         </h6>
+                        {registerError && (
+                            <FormHelperText error sx={{ margin: "0 1rem" }}>
+                                {registerError}
+                            </FormHelperText>
+                        )}
                     </Box>
                 </Paper>
             )}
