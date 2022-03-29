@@ -1,5 +1,6 @@
 import { Box, Button, Paper } from "@mui/material";
 import React, { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
 
 function Login(props) {
     const [toggleLogin, setToggleLogin] = useState(true);
@@ -34,7 +35,7 @@ function Login(props) {
                             display: "flex",
                             flexDirection: "column",
                             gap: "1rem",
-                            maxWidth: "230px",
+                            maxWidth: "250px",
                         }}
                     >
                         <input
@@ -58,7 +59,15 @@ function Login(props) {
                         <Button sx={{ margin: "0 1rem" }} variant="contained">
                             SIGN IN
                         </Button>
-                        <Button sx={{ margin: "0 1rem" }} variant="outlined">
+                        <Button
+                            sx={{
+                                margin: "0 1rem",
+                                display: "flex",
+                                gap: "1rem",
+                            }}
+                            variant="outlined"
+                        >
+                            <FcGoogle />
                             SIGN IN WITH GOOGLE
                         </Button>
                         <h6
@@ -119,7 +128,7 @@ function Login(props) {
                             }}
                         />
                         <Button sx={{ margin: "0 1rem" }} variant="contained">
-                            SIGN IN
+                            Register
                         </Button>
                         <h6
                             style={{
