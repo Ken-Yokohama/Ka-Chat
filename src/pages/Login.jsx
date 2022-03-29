@@ -6,7 +6,7 @@ import {
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { auth, db } from "../firebase-config";
+import { auth, db, SignInWithGoogle } from "../firebase-config";
 
 function Login(props) {
     const [toggleLogin, setToggleLogin] = useState(true);
@@ -117,6 +117,7 @@ function Login(props) {
                                 gap: "1rem",
                             }}
                             variant="outlined"
+                            onClick={SignInWithGoogle}
                         >
                             <FcGoogle />
                             SIGN IN WITH GOOGLE

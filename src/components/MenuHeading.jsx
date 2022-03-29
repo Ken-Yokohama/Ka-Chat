@@ -4,6 +4,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import Avatar from "@mui/material/Avatar";
 import Popover from "@mui/material/Popover";
 import { Box } from "@mui/system";
+import { signOut } from "firebase/auth";
+import { auth, db } from "../firebase-config";
 
 function MenuHeading(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -18,6 +20,10 @@ function MenuHeading(props) {
 
     const openPopover = Boolean(anchorEl);
     const id = openPopover ? "simple-popover" : undefined;
+
+    const logoutUser = async () => {
+        await signOut(auth);
+    };
 
     return (
         <Paper
@@ -81,6 +87,7 @@ function MenuHeading(props) {
                                 backgroundColor: "#E0E0E0",
                             },
                         }}
+                        onClick={logoutUser}
                     >
                         Sign Out
                     </Box>
