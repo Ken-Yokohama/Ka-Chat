@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 function ChatMain({ chatObjArray }) {
-    useEffect(() => {
-        // if (!chatObjArray) return;
-        console.log(chatObjArray);
-    }, [chatObjArray]);
-
     return (
         <div
             style={{
@@ -15,7 +10,19 @@ function ChatMain({ chatObjArray }) {
                 flexDirection: "column-reverse",
             }}
         >
-            ChatMain
+            {chatObjArray &&
+                chatObjArray?.map((chatObj) => (
+                    <div key={chatObj?.id}>
+                        <p style={{ margin: 0 }}>{chatObj?.message}</p>
+                        <h6>
+                            {chatObj?.author?.substring(
+                                0,
+                                chatObj?.author?.lastIndexOf("@")
+                            )}{" "}
+                            - {chatObj?.timestamp?.toDate()?.toLocaleString()}
+                        </h6>
+                    </div>
+                ))}
         </div>
     );
 }
