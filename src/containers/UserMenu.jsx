@@ -7,6 +7,7 @@ function UserMenu({
     setShowMenu,
     registeredUsers,
     setCurrentChatId,
+    setFriendUid,
 }) {
     return (
         <Box
@@ -22,8 +23,10 @@ function UserMenu({
         >
             <MenuHeading />
             <MenuChat
+                setShowMenu={setShowMenu}
                 registeredUsers={registeredUsers}
                 setCurrentChatId={setCurrentChatId}
+                setFriendUid={setFriendUid}
             />
         </Box>
     );

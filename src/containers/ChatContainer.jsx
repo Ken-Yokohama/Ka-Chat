@@ -4,16 +4,16 @@ import React, { useEffect, useState } from "react";
 import { ChatHeading, ChatInput, ChatMain } from "../components";
 import { auth, db } from "../firebase-config";
 
-function ChatContainer({ showMenu, setShowMenu, currentChatId }) {
+function ChatContainer({ showMenu, setShowMenu, currentChatId, friendUid }) {
     const [chatObjArray, setChatObjArray] = useState(null);
 
     useEffect(() => {
         if (!currentChatId) return;
         const nestedChatsCollectionRef = collection(
             db,
-            "chats"
-            // currentChatId,
-            // "messages"
+            "chats",
+            currentChatId,
+            "messages"
         );
         const q = query(
             nestedChatsCollectionRef,
@@ -39,9 +39,9 @@ function ChatContainer({ showMenu, setShowMenu, currentChatId }) {
                 },
             }}
         >
-            <ChatHeading />
+            <ChatHeading setShowMenu={setShowMenu} />
             <ChatMain chatObjArray={chatObjArray} />
-            <ChatInput />
+            <ChatInput friendUid={friendUid} currentChatId={currentChatId} />
         </Box>
     );
 }

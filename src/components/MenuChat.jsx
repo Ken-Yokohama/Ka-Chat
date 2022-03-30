@@ -11,11 +11,18 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../firebase-config";
 
-function MenuChat({ registeredUsers, setCurrentChatId }) {
+function MenuChat({
+    registeredUsers,
+    setCurrentChatId,
+    setShowMenu,
+    setFriendUid,
+}) {
     const handleOption = async (e, value) => {
         const getUserObject = registeredUsers.find((e) => e.user == value);
         if (!getUserObject) return;
         if (getUserObject.user == auth?.currentUser?.email) return;
+
+        setFriendUid(getUserObject?.id);
 
         const userChatRefA = doc(
             db,
@@ -29,6 +36,7 @@ function MenuChat({ registeredUsers, setCurrentChatId }) {
         // Check if Chat Already Exists
         if (checkIfAlreadyChatted.exists()) {
             setCurrentChatId(checkIfAlreadyChatted.data().chatId);
+            setShowMenu(false);
         } else {
             const chatsCollectionRef = await collection(db, "chats");
             // Create Chat in Chats Collection
@@ -53,7 +61,7 @@ function MenuChat({ registeredUsers, setCurrentChatId }) {
                 auth?.currentUser?.uid
             );
 
-            // Add Chats Collection Ref to Nest Chat of Chatted User
+            // Add Chats Collection Ref to Nested Chat of Chatted User
             await setDoc(userChatRefB, {
                 user: auth?.currentUser?.email,
                 chatId: chatData.id,
@@ -61,6 +69,7 @@ function MenuChat({ registeredUsers, setCurrentChatId }) {
 
             console.log("Chat Doesn't Exist so New Chat Created!");
             setCurrentChatId(chatData.id);
+            setShowMenu(false);
         }
     };
 
