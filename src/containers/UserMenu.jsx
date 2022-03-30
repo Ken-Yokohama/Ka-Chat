@@ -1,20 +1,31 @@
+import { Box } from "@mui/material";
 import React, { useState } from "react";
 import { MenuChat, MenuHeading } from "../components";
 
-function UserMenu({ showMenu, setShowMenu, registeredUsers }) {
+function UserMenu({
+    showMenu,
+    setShowMenu,
+    registeredUsers,
+    setCurrentChatId,
+}) {
     return (
-        <div
-            style={{
+        <Box
+            sx={{
                 height: "100vh",
                 width: "100%",
-                display: "flex",
+                display: showMenu ? "flex" : "none",
                 flexDirection: "column",
+                "@media (min-width: 800px)": {
+                    display: "flex",
+                },
             }}
-            className={showMenu ? "" : "menu-container"}
         >
             <MenuHeading />
-            <MenuChat registeredUsers={registeredUsers} />
-        </div>
+            <MenuChat
+                registeredUsers={registeredUsers}
+                setCurrentChatId={setCurrentChatId}
+            />
+        </Box>
     );
 }
 

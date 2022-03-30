@@ -19,6 +19,8 @@ function Main(props) {
         );
     }, []);
 
+    const [currentChatId, setCurrentChatId] = useState(null);
+
     return (
         <div style={{ display: "flex", justifyContent: "center" }}>
             <Paper
@@ -36,11 +38,13 @@ function Main(props) {
                     showMenu={showMenu}
                     setShowMenu={setShowMenu}
                     registeredUsers={registeredUsers}
+                    setCurrentChatId={setCurrentChatId}
                 />
                 <ChatContainer
                     showMenu={showMenu}
                     setShowMenu={setShowMenu}
                     registeredUsers={registeredUsers}
+                    currentChatId={currentChatId}
                 />
             </Paper>
         </div>

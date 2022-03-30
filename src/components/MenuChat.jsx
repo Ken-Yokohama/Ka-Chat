@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../firebase-config";
 
-function MenuChat({ registeredUsers }) {
+function MenuChat({ registeredUsers, setCurrentChatId }) {
     const handleOption = async (e, value) => {
         const getUserObject = registeredUsers.find((e) => e.user == value);
         if (!getUserObject) return;
@@ -26,15 +26,15 @@ function MenuChat({ registeredUsers }) {
         );
 
         const checkIfAlreadyChatted = await getDoc(userChatRefA);
+        // Check if Chat Already Exists
         if (checkIfAlreadyChatted.exists()) {
-            console.log("Chat Message Exists");
+            setCurrentChatId(checkIfAlreadyChatted.data().chatId);
         } else {
             const chatsCollectionRef = await collection(db, "chats");
             // Create Chat in Chats Collection
             const chatData = await addDoc(chatsCollectionRef, {
                 author: "admin",
                 message: "New Chat Created!",
-                imgSrc: "",
                 timestamp: serverTimestamp(),
                 ids: [auth?.currentUser?.uid, getUserObject?.id],
             });
@@ -60,6 +60,7 @@ function MenuChat({ registeredUsers }) {
             });
 
             console.log("Chat Doesn't Exist so New Chat Created!");
+            setCurrentChatId(chatData.id);
         }
     };
 

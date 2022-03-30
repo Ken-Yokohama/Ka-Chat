@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 
-function ChatMain(props) {
-    const [items, setItems] = useState([]);
-
+function ChatMain({ chatObjArray }) {
     useEffect(() => {
-        for (var i = 0; i < 20; i++) {
-            items.push("MenuChat");
-        }
-    }, []);
+        // if (!chatObjArray) return;
+        console.log(chatObjArray);
+    }, [chatObjArray]);
 
     return (
-        <div style={{ flex: "1", overflowY: "scroll" }}>
+        <div
+            style={{
+                flex: "1",
+                overflowY: "scroll",
+                display: "flex",
+                flexDirection: "column-reverse",
+            }}
+        >
             ChatMain
-            {items.map((item, index) => (
-                <h1 key={index}>{item}</h1>
-            ))}
         </div>
     );
 }
