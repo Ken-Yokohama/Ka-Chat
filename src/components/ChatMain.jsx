@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
 
 function ChatMain({ chatObjArray }) {
+    const [orderedObjArray, setOrderedObjArray] = useState(null);
+
+    useEffect(() => {
+        if (!chatObjArray) return;
+        const orderArray = chatObjArray.sort(
+            (a, b) => b.timestamp - a.timestamp
+        );
+        setOrderedObjArray(orderArray);
+    }, [chatObjArray]);
+
     return (
         <div
             style={{
@@ -10,8 +20,8 @@ function ChatMain({ chatObjArray }) {
                 flexDirection: "column-reverse",
             }}
         >
-            {chatObjArray &&
-                chatObjArray?.map((chatObj) => (
+            {orderedObjArray &&
+                orderedObjArray?.map((chatObj) => (
                     <div key={chatObj?.id}>
                         <p style={{ margin: 0 }}>{chatObj?.message}</p>
                         <h6>

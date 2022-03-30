@@ -1,5 +1,11 @@
 import { Box } from "@mui/material";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import {
+    collection,
+    onSnapshot,
+    orderBy,
+    query,
+    where,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { ChatHeading, ChatInput, ChatMain } from "../components";
 import { auth, db } from "../firebase-config";
