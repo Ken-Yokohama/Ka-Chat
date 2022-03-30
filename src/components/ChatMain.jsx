@@ -1,4 +1,7 @@
+import { Avatar } from "@mui/material";
+import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
+import { auth } from "../firebase-config";
 
 function ChatMain({ chatObjArray }) {
     const [orderedObjArray, setOrderedObjArray] = useState(null);
@@ -22,16 +25,54 @@ function ChatMain({ chatObjArray }) {
         >
             {orderedObjArray &&
                 orderedObjArray?.map((chatObj) => (
-                    <div key={chatObj?.id}>
-                        <p style={{ margin: 0 }}>{chatObj?.message}</p>
-                        <h6>
-                            {chatObj?.author?.substring(
-                                0,
-                                chatObj?.author?.lastIndexOf("@")
-                            )}{" "}
-                            - {chatObj?.timestamp?.toDate()?.toLocaleString()}
-                        </h6>
-                    </div>
+                    <Box
+                        key={chatObj?.id}
+                        sx={{
+                            display: "flex",
+                            justifyContent:
+                                chatObj?.author == auth?.currentUser?.email
+                                    ? "flex-end"
+                                    : "flex-start",
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                padding: "1rem 0 0 1rem",
+                                display:
+                                    chatObj?.author ==
+                                        auth?.currentUser?.email && "none",
+                            }}
+                        >
+                            <Avatar />
+                        </Box>
+                        <Box
+                            style={{
+                                margin: "0 1rem 0.5rem 1rem",
+                                padding: "1rem",
+                                borderRadius: "1rem",
+                                backgroundColor:
+                                    chatObj?.author == auth?.currentUser?.email
+                                        ? "#78C1FF"
+                                        : "orange",
+                            }}
+                        >
+                            <Box>
+                                <p style={{ margin: 0, fontSize: "1rem" }}>
+                                    {chatObj?.message}
+                                </p>
+                                <h6 style={{ fontSize: "0.75rem" }}>
+                                    {chatObj?.author?.substring(
+                                        0,
+                                        chatObj?.author?.lastIndexOf("@")
+                                    )}{" "}
+                                    -{" "}
+                                    {chatObj?.timestamp
+                                        ?.toDate()
+                                        ?.toLocaleString()}
+                                </h6>
+                            </Box>
+                        </Box>
+                    </Box>
                 ))}
         </div>
     );

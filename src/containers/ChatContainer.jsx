@@ -10,7 +10,13 @@ import React, { useEffect, useState } from "react";
 import { ChatHeading, ChatInput, ChatMain } from "../components";
 import { auth, db } from "../firebase-config";
 
-function ChatContainer({ showMenu, setShowMenu, currentChatId, friendUid }) {
+function ChatContainer({
+    showMenu,
+    setShowMenu,
+    currentChatId,
+    friendUid,
+    friendEmail,
+}) {
     const [chatObjArray, setChatObjArray] = useState(null);
 
     useEffect(() => {
@@ -45,7 +51,7 @@ function ChatContainer({ showMenu, setShowMenu, currentChatId, friendUid }) {
                 },
             }}
         >
-            <ChatHeading setShowMenu={setShowMenu} />
+            <ChatHeading setShowMenu={setShowMenu} friendEmail={friendEmail} />
             <ChatMain chatObjArray={chatObjArray} />
             <ChatInput friendUid={friendUid} currentChatId={currentChatId} />
         </Box>

@@ -8,6 +8,7 @@ function UserMenu({
     registeredUsers,
     setCurrentChatId,
     setFriendUid,
+    setFriendEmail,
 }) {
     return (
         <Box
@@ -27,6 +28,7 @@ function UserMenu({
                 registeredUsers={registeredUsers}
                 setCurrentChatId={setCurrentChatId}
                 setFriendUid={setFriendUid}
+                setFriendEmail={setFriendEmail}
             />
         </Box>
     );

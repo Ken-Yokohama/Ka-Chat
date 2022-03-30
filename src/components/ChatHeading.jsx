@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Paper } from "@mui/material";
 
-function ChatHeading({ setShowMenu }) {
+function ChatHeading({ setShowMenu, friendEmail }) {
     return (
         <Paper
             sx={{
@@ -21,7 +21,7 @@ function ChatHeading({ setShowMenu }) {
                     setShowMenu(true);
                 }}
             />
-            <div>ChatHeading</div>
+            <div>{friendEmail}</div>
         </Paper>
     );
 }

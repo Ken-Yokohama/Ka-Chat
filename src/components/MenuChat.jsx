@@ -16,13 +16,14 @@ function MenuChat({
     setCurrentChatId,
     setShowMenu,
     setFriendUid,
+    setFriendEmail,
 }) {
     const handleOption = async (e, value) => {
         const getUserObject = registeredUsers.find((e) => e.user == value);
         if (!getUserObject) return;
         if (getUserObject.user == auth?.currentUser?.email) return;
-
         setFriendUid(getUserObject?.id);
+        setFriendEmail(getUserObject?.user);
 
         const userChatRefA = doc(
             db,
@@ -67,7 +68,6 @@ function MenuChat({
                 chatId: chatData.id,
             });
 
-            console.log("Chat Doesn't Exist so New Chat Created!");
             setCurrentChatId(chatData.id);
             setShowMenu(false);
         }

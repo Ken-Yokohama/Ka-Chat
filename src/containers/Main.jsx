@@ -20,7 +20,7 @@ function Main(props) {
     }, []);
 
     const [friendUid, setFriendUid] = useState(null);
-
+    const [friendEmail, setFriendEmail] = useState(null);
     const [currentChatId, setCurrentChatId] = useState(null);
 
     return (
@@ -42,6 +42,7 @@ function Main(props) {
                     registeredUsers={registeredUsers}
                     setCurrentChatId={setCurrentChatId}
                     setFriendUid={setFriendUid}
+                    setFriendEmail={setFriendEmail}
                 />
                 <ChatContainer
                     showMenu={showMenu}
@@ -49,6 +50,7 @@ function Main(props) {
                     registeredUsers={registeredUsers}
                     currentChatId={currentChatId}
                     friendUid={friendUid}
+                    friendEmail={friendEmail}
                 />
             </Paper>
         </div>
