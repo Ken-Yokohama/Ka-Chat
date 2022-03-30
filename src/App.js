@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Main } from "./containers";
 import { auth } from "./firebase-config";
-import { Login } from "./pages";
+import { Loading, Login } from "./pages";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState("loading");
@@ -20,11 +20,27 @@ function App() {
             <Routes>
                 <Route
                     path="/*"
-                    element={isLoggedIn ? <Main /> : <Navigate to="/login" />}
+                    element={
+                        isLoggedIn == "loading" ? (
+                            <Loading />
+                        ) : isLoggedIn ? (
+                            <Main />
+                        ) : (
+                            <Navigate to="/login" />
+                        )
+                    }
                 />
                 <Route
                     path="/login"
-                    element={!isLoggedIn ? <Login /> : <Navigate to="/" />}
+                    element={
+                        isLoggedIn == "loading" ? (
+                            <Loading />
+                        ) : !isLoggedIn ? (
+                            <Login />
+                        ) : (
+                            <Navigate to="/" />
+                        )
+                    }
                 />
             </Routes>
         </div>

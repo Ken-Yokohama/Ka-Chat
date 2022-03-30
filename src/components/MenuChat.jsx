@@ -6,10 +6,13 @@ import {
     collection,
     doc,
     getDoc,
+    getDocs,
     serverTimestamp,
     setDoc,
 } from "firebase/firestore";
 import { auth, db } from "../firebase-config";
+import { Box } from "@mui/system";
+import { Avatar } from "@mui/material";
 
 function MenuChat({
     registeredUsers,
@@ -73,6 +76,33 @@ function MenuChat({
         }
     };
 
+    const [previousChats, setPreviousChats] = useState([]);
+
+    useEffect(async () => {
+        const usersChatCollectionRef = collection(
+            db,
+            "users",
+            auth?.currentUser?.uid,
+            "chats"
+        );
+
+        const chats = await getDocs(usersChatCollectionRef);
+        setPreviousChats(
+            chats.docs.map((chatUsers) => ({
+                ...chatUsers?.data(),
+                id: chatUsers?.id,
+            }))
+        );
+    }, []);
+
+    const handleOpenOldChat = (email, chatId) => {
+        const getUserObject = registeredUsers.find((e) => e.user == email);
+        setFriendUid(getUserObject?.id);
+        setFriendEmail(getUserObject?.user);
+        setCurrentChatId(chatId);
+        setShowMenu(false);
+    };
+
     return (
         <div style={{ overflowY: "scroll" }}>
             <Autocomplete
@@ -85,6 +115,27 @@ function MenuChat({
                     <TextField {...params} label="New Message" />
                 )}
             />
+            {previousChats.map((prevChat) => (
+                <Box
+                    sx={{
+                        padding: "1rem",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "1rem",
+                        cursor: "pointer",
+                        ":hover": {
+                            backgroundColor: "#E0E0E0",
+                        },
+                    }}
+                    key={prevChat?.id}
+                    onClick={() => {
+                        handleOpenOldChat(prevChat?.user, prevChat?.chatId);
+                    }}
+                >
+                    <Avatar />
+                    <p style={{ margin: "0" }}>{prevChat?.user}</p>
+                </Box>
+            ))}
         </div>
     );
 }
