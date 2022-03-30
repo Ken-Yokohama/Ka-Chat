@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MenuChat, MenuHeading } from "../components";
 
-function UserMenu({ showMenu, setShowMenu }) {
+function UserMenu({ showMenu, setShowMenu, registeredUsers }) {
     return (
         <div
             style={{
@@ -13,7 +13,7 @@ function UserMenu({ showMenu, setShowMenu }) {
             className={showMenu ? "" : "menu-container"}
         >
             <MenuHeading />
-            <MenuChat />
+            <MenuChat registeredUsers={registeredUsers} />
         </div>
     );
 }

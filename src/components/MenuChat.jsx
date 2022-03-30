@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 
-function MenuChat(props) {
-    const [items, setItems] = useState([]);
-
-    useEffect(() => {
-        for (var i = 0; i < 20; i++) {
-            items.push("MenuChat");
-        }
-    }, []);
+function MenuChat({ registeredUsers }) {
+    const handleOption = (e, value) => {
+        const getUserObject = registeredUsers.find((e) => e.user == value);
+        if (!getUserObject) return;
+        console.log(getUserObject);
+    };
 
     return (
         <div style={{ overflowY: "scroll" }}>
-            MenuChat
-            {items.map((item, index) => (
-                <h1 key={index}>{item}</h1>
-            ))}
+            <Autocomplete
+                sx={{ padding: "1rem" }}
+                id="free-solo-demo"
+                freeSolo
+                options={registeredUsers.map((option) => option.user)}
+                onChange={handleOption}
+                renderInput={(params) => (
+                    <TextField {...params} label="New Message" />
+                )}
+            />
         </div>
     );
 }

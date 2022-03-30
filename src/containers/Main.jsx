@@ -1,10 +1,23 @@
 import { Box, Paper } from "@mui/material";
-import React, { useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { db } from "../firebase-config";
 import ChatContainer from "./ChatContainer";
 import UserMenu from "./UserMenu";
 
 function Main(props) {
     const [showMenu, setShowMenu] = useState(true);
+
+    const [registeredUsers, setRegisteredUsers] = useState([]);
+
+    const usersCollectionRef = collection(db, "users");
+
+    useEffect(async () => {
+        const users = await getDocs(usersCollectionRef);
+        setRegisteredUsers(
+            users.docs.map((user) => ({ ...user.data(), id: user.id }))
+        );
+    }, []);
 
     return (
         <div style={{ display: "flex", justifyContent: "center" }}>
@@ -19,8 +32,16 @@ function Main(props) {
                     },
                 }}
             >
-                <UserMenu showMenu={showMenu} setShowMenu={setShowMenu} />
-                <ChatContainer showMenu={showMenu} setShowMenu={setShowMenu} />
+                <UserMenu
+                    showMenu={showMenu}
+                    setShowMenu={setShowMenu}
+                    registeredUsers={registeredUsers}
+                />
+                <ChatContainer
+                    showMenu={showMenu}
+                    setShowMenu={setShowMenu}
+                    registeredUsers={registeredUsers}
+                />
             </Paper>
         </div>
     );
