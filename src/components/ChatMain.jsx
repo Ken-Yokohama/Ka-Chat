@@ -17,7 +17,8 @@ function ChatMain({ chatObjArray, registeredUsers, friendEmail }) {
     return (
         <div
             style={{
-                flex: "1",
+                height: "0px",
+                flexGrow: "1",
                 overflowY: "scroll",
                 display: "flex",
                 flexDirection: "column-reverse",

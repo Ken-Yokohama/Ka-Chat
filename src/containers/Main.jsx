@@ -29,10 +29,12 @@ function Main(props) {
                 display: "flex",
                 justifyContent: "center",
                 backgroundImage: "url(/Ka-Chat/images/login-background.jpg)",
+                height: "100%",
             }}
         >
             <Paper
                 sx={{
+                    height: "100%",
                     display: "grid",
                     gridTemplateColumns: "1fr 2fr",
                     width: "100%",

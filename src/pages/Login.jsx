@@ -55,9 +55,10 @@ function Login(props) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                height: "100vh",
+                height: "100%",
                 backgroundImage: "url(/Ka-Chat/images/login-background.jpg)",
             }}
+            className="login-container"
         >
             {/* Login */}
             {toggleLogin && (

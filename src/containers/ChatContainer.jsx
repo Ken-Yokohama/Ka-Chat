@@ -43,7 +43,7 @@ function ChatContainer({
     return (
         <Box
             sx={{
-                height: "100vh",
+                maxHeight: "100%",
                 width: "100%",
                 display: showMenu ? "none" : "flex",
                 flexDirection: "column",

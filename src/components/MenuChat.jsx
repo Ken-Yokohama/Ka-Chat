@@ -104,7 +104,7 @@ function MenuChat({
     };
 
     return (
-        <div style={{ overflowY: "scroll" }}>
+        <div style={{ overflowY: "scroll", height: "0px", flexGrow: "1" }}>
             <Autocomplete
                 sx={{ padding: "1rem" }}
                 id="free-solo-demo"
