@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Ka-Chat/static/css/main.2dcf31b5.css",
-    "main.js": "/Ka-Chat/static/js/main.8b407de6.js",
+    "main.js": "/Ka-Chat/static/js/main.28e28487.js",
     "index.html": "/Ka-Chat/index.html",
     "main.2dcf31b5.css.map": "/Ka-Chat/static/css/main.2dcf31b5.css.map",
-    "main.8b407de6.js.map": "/Ka-Chat/static/js/main.8b407de6.js.map"
+    "main.28e28487.js.map": "/Ka-Chat/static/js/main.28e28487.js.map"
   },
   "entrypoints": [
     "static/css/main.2dcf31b5.css",
-    "static/js/main.8b407de6.js"
+    "static/js/main.28e28487.js"
   ]
 }
