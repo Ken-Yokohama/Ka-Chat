@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebase-config";
 
-function ChatMain({ chatObjArray }) {
+function ChatMain({ chatObjArray, registeredUsers, friendEmail }) {
     const [orderedObjArray, setOrderedObjArray] = useState(null);
 
     useEffect(() => {
@@ -43,7 +43,18 @@ function ChatMain({ chatObjArray }) {
                                         auth?.currentUser?.email && "none",
                             }}
                         >
-                            <Avatar />
+                            {friendEmail && (
+                                <Avatar
+                                    src={
+                                        registeredUsers.length != 0
+                                            ? registeredUsers?.find(
+                                                  ({ user }) =>
+                                                      user == friendEmail
+                                              ).avatar
+                                            : ""
+                                    }
+                                />
+                            )}
                         </Box>
                         <Box
                             style={{

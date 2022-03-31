@@ -13,6 +13,7 @@ import { auth, db } from "../firebase-config";
 function ChatContainer({
     showMenu,
     setShowMenu,
+    registeredUsers,
     currentChatId,
     friendUid,
     friendEmail,
@@ -53,8 +54,16 @@ function ChatContainer({
                 },
             }}
         >
-            <ChatHeading setShowMenu={setShowMenu} friendEmail={friendEmail} />
-            <ChatMain chatObjArray={chatObjArray} />
+            <ChatHeading
+                setShowMenu={setShowMenu}
+                friendEmail={friendEmail}
+                registeredUsers={registeredUsers}
+            />
+            <ChatMain
+                chatObjArray={chatObjArray}
+                registeredUsers={registeredUsers}
+                friendEmail={friendEmail}
+            />
             <ChatInput friendUid={friendUid} currentChatId={currentChatId} />
         </Box>
     );

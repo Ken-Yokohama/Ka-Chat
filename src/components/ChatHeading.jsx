@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { Paper } from "@mui/material";
+import { Avatar, Paper } from "@mui/material";
 
-function ChatHeading({ setShowMenu, friendEmail }) {
+function ChatHeading({ setShowMenu, friendEmail, registeredUsers }) {
     return (
         <Paper
             sx={{
@@ -17,13 +17,26 @@ function ChatHeading({ setShowMenu, friendEmail }) {
             <ArrowBackIcon
                 sx={{
                     cursor: "pointer",
-                    "@media (min-width: 800px)": { display: "none" },
+                    "@media (min-width: 800px)": { visibility: "hidden" },
                 }}
                 onClick={() => {
                     setShowMenu(true);
                 }}
             />
-            <div>{friendEmail}</div>
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                {friendEmail}{" "}
+                {friendEmail && (
+                    <Avatar
+                        src={
+                            registeredUsers.length != 0
+                                ? registeredUsers?.find(
+                                      ({ user }) => user == friendEmail
+                                  ).avatar
+                                : ""
+                        }
+                    />
+                )}
+            </div>
         </Paper>
     );
 }
