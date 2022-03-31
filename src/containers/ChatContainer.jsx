@@ -46,6 +46,8 @@ function ChatContainer({
                 width: "100%",
                 display: showMenu ? "none" : "flex",
                 flexDirection: "column",
+                backgroundImage:
+                    "url(https://img.freepik.com/free-vector/white-elegant-texture-background-style_23-2148432200.jpg?w=2000)",
                 "@media (min-width: 800px)": {
                     display: "flex",
                 },

@@ -24,7 +24,13 @@ function Main(props) {
     const [currentChatId, setCurrentChatId] = useState(null);
 
     return (
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                backgroundImage: "url(/images/login-background.jpg)",
+            }}
+        >
             <Paper
                 sx={{
                     display: "grid",

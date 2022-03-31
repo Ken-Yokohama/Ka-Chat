@@ -10,6 +10,8 @@ function ChatHeading({ setShowMenu, friendEmail }) {
                 justifyContent: "space-between",
                 alignItems: "center",
                 padding: "1rem",
+                backgroundColor: "orange",
+                borderRadius: "0",
             }}
         >
             <ArrowBackIcon

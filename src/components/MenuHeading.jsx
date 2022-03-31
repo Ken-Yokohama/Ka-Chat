@@ -32,6 +32,8 @@ function MenuHeading(props) {
                 justifyContent: "space-between",
                 alignItems: "center",
                 padding: "0 1rem",
+                backgroundColor: "#F79C43",
+                borderRadius: "0",
             }}
         >
             <SettingsIcon

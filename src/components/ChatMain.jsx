@@ -53,7 +53,7 @@ function ChatMain({ chatObjArray }) {
                                 backgroundColor:
                                     chatObj?.author == auth?.currentUser?.email
                                         ? "#78C1FF"
-                                        : "orange",
+                                        : "#F6B561",
                             }}
                         >
                             <Box>
