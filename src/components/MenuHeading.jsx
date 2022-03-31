@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Paper } from "@mui/material";
+import { Button, Paper, TextField } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Avatar from "@mui/material/Avatar";
 import Popover from "@mui/material/Popover";
 import { Box } from "@mui/system";
 import { signOut } from "firebase/auth";
 import { auth, db } from "../firebase-config";
+import Modal from "@mui/material/Modal";
+import { doc, updateDoc } from "firebase/firestore";
 
 function MenuHeading(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -23,6 +25,22 @@ function MenuHeading(props) {
 
     const logoutUser = async () => {
         await signOut(auth);
+    };
+
+    // Modal Functions
+    const [openModal, setOpenModal] = React.useState(false);
+    const handleOpenModal = () => setOpenModal(true);
+    const handleCloseModal = () => setOpenModal(false);
+
+    // Handle Image Url Update
+    const [newAvatarUrl, setNewAvatarUrl] = useState("");
+
+    const updateAvatar = async () => {
+        if (!newAvatarUrl) return;
+        const specificUserRef = doc(db, "users", auth?.currentUser?.uid);
+        await updateDoc(specificUserRef, { avatar: newAvatarUrl });
+        handleCloseModal();
+        window.location.reload();
     };
 
     return (
@@ -80,6 +98,7 @@ function MenuHeading(props) {
                                 backgroundColor: "#E0E0E0",
                             },
                         }}
+                        onClick={handleOpenModal}
                     >
                         Change Avatar
                     </Box>
@@ -99,6 +118,39 @@ function MenuHeading(props) {
                     </Box>
                 </div>
             </Popover>
+            <Modal
+                open={openModal}
+                onClose={handleCloseModal}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box
+                    sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        width: 400,
+                        bgcolor: "white",
+                        border: "2px solid #000",
+                        boxShadow: 24,
+                        p: 4,
+                        display: "flex",
+                        alignItems: "flex-end",
+                    }}
+                >
+                    <TextField
+                        id="standard-basic"
+                        label="Enter an Image Url"
+                        variant="standard"
+                        fullWidth
+                        onChange={(e) => {
+                            setNewAvatarUrl(e.target.value);
+                        }}
+                    />
+                    <Button onClick={updateAvatar}>Update</Button>
+                </Box>
+            </Modal>
         </Paper>
     );
 }
