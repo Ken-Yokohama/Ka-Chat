@@ -56,7 +56,7 @@ function Login(props) {
                 alignItems: "center",
                 justifyContent: "center",
                 height: "100vh",
-                backgroundImage: "url(/images/login-background.jpg)",
+                backgroundImage: "url(/Ka-Chat/images/login-background.jpg)",
             }}
         >
             {/* Login */}

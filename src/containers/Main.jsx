@@ -28,7 +28,7 @@ function Main(props) {
             style={{
                 display: "flex",
                 justifyContent: "center",
-                backgroundImage: "url(/images/login-background.jpg)",
+                backgroundImage: "url(/Ka-Chat/images/login-background.jpg)",
             }}
         >
             <Paper

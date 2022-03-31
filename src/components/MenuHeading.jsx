@@ -72,7 +72,7 @@ function MenuHeading({ registeredUsers }) {
                 sx={{ cursor: "pointer" }}
             />
             <img
-                src="/images/ka-chat-logo1.png"
+                src="/Ka-Chat/images/ka-chat-logo1.png"
                 alt=""
                 style={{ width: "100px" }}
             />
