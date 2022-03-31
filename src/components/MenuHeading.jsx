@@ -42,7 +42,11 @@ function MenuHeading(props) {
                 onClick={handlePopover}
                 sx={{ cursor: "pointer" }}
             />
-            <h1>Ka-Chat</h1>
+            <img
+                src="/images/ka-chat-logo1.png"
+                alt=""
+                style={{ width: "100px" }}
+            />
             <Avatar />
 
             {/* Popover for Settings */}
