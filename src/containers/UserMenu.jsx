@@ -22,7 +22,7 @@ function UserMenu({
                 },
             }}
         >
-            <MenuHeading />
+            <MenuHeading registeredUsers={registeredUsers} />
             <MenuChat
                 setShowMenu={setShowMenu}
                 registeredUsers={registeredUsers}

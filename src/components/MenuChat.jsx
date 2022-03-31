@@ -132,7 +132,15 @@ function MenuChat({
                         handleOpenOldChat(prevChat?.user, prevChat?.chatId);
                     }}
                 >
-                    <Avatar />
+                    <Avatar
+                        src={
+                            registeredUsers.length != 0
+                                ? registeredUsers?.find(
+                                      ({ id }) => id == prevChat?.id
+                                  ).avatar
+                                : ""
+                        }
+                    />
                     <p style={{ margin: "0" }}>{prevChat?.user}</p>
                 </Box>
             ))}

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Paper, TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Button, Paper, TextField, Tooltip } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Avatar from "@mui/material/Avatar";
 import Popover from "@mui/material/Popover";
@@ -9,7 +9,7 @@ import { auth, db } from "../firebase-config";
 import Modal from "@mui/material/Modal";
 import { doc, updateDoc } from "firebase/firestore";
 
-function MenuHeading(props) {
+function MenuHeading({ registeredUsers }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handlePopover = (event) => {
@@ -43,6 +43,17 @@ function MenuHeading(props) {
         window.location.reload();
     };
 
+    // Get Curr User Avatar
+    const [currUserAvatar, setCurrUserAvatar] = useState("");
+
+    useEffect(() => {
+        if (registeredUsers.length == 0) return;
+        const getUserObj = registeredUsers.find(
+            ({ id }) => id == auth?.currentUser?.uid
+        );
+        setCurrUserAvatar(getUserObj);
+    }, [registeredUsers]);
+
     return (
         <Paper
             sx={{
@@ -65,7 +76,13 @@ function MenuHeading(props) {
                 alt=""
                 style={{ width: "100px" }}
             />
-            <Avatar />
+            <Tooltip title="Change Avatar" arrow>
+                <Avatar
+                    src={currUserAvatar.avatar}
+                    sx={{ cursor: "pointer" }}
+                    onClick={handleOpenModal}
+                />
+            </Tooltip>
 
             {/* Popover for Settings */}
             <Popover
