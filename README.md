@@ -26,3 +26,14 @@ Ka-Chat is a Full-Stack Realtime Chat Application created using React in the Fro
 | Firebase Google Authentication      | Login & Authentication      |
 | Firebase Firestore     | Real Time Database      |
 | Npm GH-Pages | Web Hosting |
+
+### How to run locally
+```
+git clone https://github.com/Ken-Yokohama/Ka-Chat.git
+
+cd Ka-Chat
+npm start
+```
+
+**Note You'll have to create your own firebase project and paste your project API Keys into a .env file to be able to use your own personal version of Ka-Chat
+
