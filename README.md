@@ -9,7 +9,7 @@ Ka-Chat is a Full-Stack Realtime Chat Application created using React in the Fro
 ### Links:
 - [Live Preview](https://ken-yokohama.github.io/Ka-Chat)
 
-![Kenterest Cover Sample](https://github.com/Ken-Yokohama/Ka-Chat/blob/master/cover.JPG?raw=true)
+![Ka-Chat Cover Sample](https://github.com/Ken-Yokohama/Ka-Chat/blob/master/cover.JPG?raw=true)
 
 ### Features:
 - Email and Token Based User Authentication
