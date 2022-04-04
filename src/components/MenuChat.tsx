@@ -13,6 +13,15 @@ import {
 import { auth, db } from "../firebase-config";
 import { Box } from "@mui/system";
 import { Avatar } from "@mui/material";
+import { Chats, User } from "../model";
+
+interface Props {
+    registeredUsers: User[];
+    setCurrentChatId: React.Dispatch<React.SetStateAction<string | null>>;
+    setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
+    setFriendUid: React.Dispatch<React.SetStateAction<string | null>>;
+    setFriendEmail: React.Dispatch<React.SetStateAction<string | null>>;
+}
 
 function MenuChat({
     registeredUsers,
@@ -20,11 +29,15 @@ function MenuChat({
     setShowMenu,
     setFriendUid,
     setFriendEmail,
-}) {
-    const handleOption = async (e, value) => {
+}: Props) {
+    const handleOption = async (e: any, value: any) => {
         const getUserObject = registeredUsers.find((e) => e.user == value);
         if (!getUserObject) return;
         if (getUserObject.user == auth?.currentUser?.email) return;
+        if (getUserObject.id == undefined) return;
+        if (getUserObject.user == undefined) return;
+        if (auth?.currentUser?.uid == undefined) return;
+
         setFriendUid(getUserObject?.id);
         setFriendEmail(getUserObject?.user);
 
@@ -76,27 +89,43 @@ function MenuChat({
         }
     };
 
-    const [previousChats, setPreviousChats] = useState([]);
+    const [previousChats, setPreviousChats] = useState<
+        {
+            user?: string | undefined;
+            chatId?: string | undefined;
+            id?: string | undefined;
+        }[]
+    >([]);
 
-    useEffect(async () => {
-        const usersChatCollectionRef = collection(
-            db,
-            "users",
-            auth?.currentUser?.uid,
-            "chats"
-        );
+    useEffect(() => {
+        const runEffect = async () => {
+            if (auth?.currentUser?.uid == undefined) return;
+            const usersChatCollectionRef = collection(
+                db,
+                "users",
+                auth?.currentUser?.uid,
+                "chats"
+            );
 
-        const chats = await getDocs(usersChatCollectionRef);
-        setPreviousChats(
-            chats.docs.map((chatUsers) => ({
-                ...chatUsers?.data(),
-                id: chatUsers?.id,
-            }))
-        );
+            const chats = await getDocs(usersChatCollectionRef);
+            setPreviousChats(
+                chats.docs.map((chatUsers) => ({
+                    ...chatUsers?.data(),
+                    id: chatUsers?.id,
+                }))
+            );
+        };
+        runEffect();
     }, []);
 
-    const handleOpenOldChat = (email, chatId) => {
+    const handleOpenOldChat = (
+        email: string | undefined,
+        chatId: string | undefined
+    ) => {
         const getUserObject = registeredUsers.find((e) => e.user == email);
+        if (getUserObject?.id == undefined) return;
+        if (getUserObject?.user == undefined) return;
+        if (!chatId) return;
         setFriendUid(getUserObject?.id);
         setFriendEmail(getUserObject?.user);
         setCurrentChatId(chatId);
@@ -137,7 +166,7 @@ function MenuChat({
                             registeredUsers.length != 0
                                 ? registeredUsers?.find(
                                       ({ id }) => id == prevChat?.id
-                                  ).avatar
+                                  )?.avatar
                                 : ""
                         }
                     />

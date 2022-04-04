@@ -8,11 +8,16 @@ import { signOut } from "firebase/auth";
 import { auth, db } from "../firebase-config";
 import Modal from "@mui/material/Modal";
 import { doc, updateDoc } from "firebase/firestore";
+import { User } from "../model";
 
-function MenuHeading({ registeredUsers }) {
+interface Props {
+    registeredUsers: User[];
+}
+
+function MenuHeading({ registeredUsers }: Props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const handlePopover = (event) => {
+    const handlePopover = (event: any) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -37,6 +42,7 @@ function MenuHeading({ registeredUsers }) {
 
     const updateAvatar = async () => {
         if (!newAvatarUrl) return;
+        if (!auth?.currentUser?.uid) return;
         const specificUserRef = doc(db, "users", auth?.currentUser?.uid);
         await updateDoc(specificUserRef, { avatar: newAvatarUrl });
         handleCloseModal();
@@ -44,13 +50,19 @@ function MenuHeading({ registeredUsers }) {
     };
 
     // Get Curr User Avatar
-    const [currUserAvatar, setCurrUserAvatar] = useState("");
+    const [currUserAvatar, setCurrUserAvatar] = useState<{
+        avatar?: string;
+        id?: string;
+        timestamp?: any;
+        user?: string;
+    }>({});
 
     useEffect(() => {
         if (registeredUsers.length == 0) return;
         const getUserObj = registeredUsers.find(
             ({ id }) => id == auth?.currentUser?.uid
         );
+        if (getUserObj == undefined) return;
         setCurrUserAvatar(getUserObj);
     }, [registeredUsers]);
 

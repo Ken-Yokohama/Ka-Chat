@@ -44,6 +44,10 @@ export const SignInWithGoogle = async () => {
             });
         }
     } catch (err) {
-        console.log(err.message);
+        if (err instanceof Error) {
+            console.log(err.message);
+        } else {
+            console.log(String(err));
+        }
     }
 };

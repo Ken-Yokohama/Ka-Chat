@@ -20,7 +20,6 @@ function ChatMain({ chatObjArray, registeredUsers, friendEmail }: Props) {
         const orderArray = chatObjArray?.sort(
             (a, b) => b?.timestamp - a?.timestamp
         );
-        console.log(orderArray);
         setOrderedObjArray(orderArray);
     }, [chatObjArray]);
 
