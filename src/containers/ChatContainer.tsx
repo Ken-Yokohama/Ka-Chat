@@ -9,6 +9,16 @@ import {
 import React, { useEffect, useState } from "react";
 import { ChatHeading, ChatInput, ChatMain } from "../components";
 import { auth, db } from "../firebase-config";
+import { Chats, User } from "../model";
+
+interface Props {
+    showMenu: boolean;
+    setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
+    registeredUsers: User[];
+    currentChatId: string | null;
+    friendUid: string | null;
+    friendEmail: string | null;
+}
 
 function ChatContainer({
     showMenu,
@@ -17,8 +27,8 @@ function ChatContainer({
     currentChatId,
     friendUid,
     friendEmail,
-}) {
-    const [chatObjArray, setChatObjArray] = useState(null);
+}: Props) {
+    const [chatObjArray, setChatObjArray] = useState<Chats[] | null>(null);
 
     useEffect(() => {
         if (!currentChatId) return;

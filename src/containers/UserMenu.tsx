@@ -1,6 +1,16 @@
 import { Box } from "@mui/material";
 import React, { useState } from "react";
 import { MenuChat, MenuHeading } from "../components";
+import { User } from "../model";
+
+interface Props {
+    showMenu: boolean;
+    setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
+    registeredUsers: User[];
+    setCurrentChatId: React.Dispatch<React.SetStateAction<string | null>>;
+    setFriendUid: React.Dispatch<React.SetStateAction<string | null>>;
+    setFriendEmail: React.Dispatch<React.SetStateAction<string | null>>;
+}
 
 function UserMenu({
     showMenu,
@@ -9,7 +19,7 @@ function UserMenu({
     setCurrentChatId,
     setFriendUid,
     setFriendEmail,
-}) {
+}: Props) {
     return (
         <Box
             sx={{

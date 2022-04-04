@@ -2,20 +2,14 @@ import { Box, Paper } from "@mui/material";
 import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase-config";
+import { User } from "../model";
 import ChatContainer from "./ChatContainer";
 import UserMenu from "./UserMenu";
-
-interface user {
-    avatar?: string;
-    timestamp?: Date;
-    user?: string;
-    id?: string;
-}
 
 function Main() {
     const [showMenu, setShowMenu] = useState(true);
 
-    const [registeredUsers, setRegisteredUsers] = useState<user[]>([]);
+    const [registeredUsers, setRegisteredUsers] = useState<User[]>([]);
 
     const usersCollectionRef = collection(db, "users");
 
@@ -29,9 +23,9 @@ function Main() {
         getAllUsers();
     }, []);
 
-    const [friendUid, setFriendUid] = useState(null);
-    const [friendEmail, setFriendEmail] = useState(null);
-    const [currentChatId, setCurrentChatId] = useState(null);
+    const [friendUid, setFriendUid] = useState<string | null>(null);
+    const [friendEmail, setFriendEmail] = useState<string | null>(null);
+    const [currentChatId, setCurrentChatId] = useState<string | null>(null);
 
     return (
         <div
