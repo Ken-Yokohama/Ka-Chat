@@ -6,10 +6,12 @@ import { auth } from "./firebase-config";
 import { Loading, Login } from "./pages";
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState("loading");
+    const [isLoggedIn, setIsLoggedIn] = useState<string | null | object>(
+        "loading"
+    );
 
     useEffect(() => {
-        const unsub = onAuthStateChanged(auth, (currUser) => {
+        const unsub = onAuthStateChanged(auth, (currUser: object | null) => {
             setIsLoggedIn(currUser);
         });
         return unsub;

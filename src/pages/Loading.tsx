@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Loading(props) {
+function Loading() {
     return <div>Loading</div>;
 }
 

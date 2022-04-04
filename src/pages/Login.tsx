@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { auth, db, SignInWithGoogle } from "../firebase-config";
 
-function Login(props) {
+function Login() {
     const [toggleLogin, setToggleLogin] = useState(true);
 
     const handleToggleLogin = () => {
@@ -37,7 +37,13 @@ function Login(props) {
                 avatar: "",
             });
         } catch (err) {
-            setRegisterError(err.message);
+            let message;
+            if (err instanceof Error) {
+                message = err.message;
+            } else {
+                message = String(err);
+            }
+            setRegisterError(message);
         }
     };
 
@@ -45,7 +51,13 @@ function Login(props) {
         try {
             await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
         } catch (err) {
-            setLoginError(err.message);
+            let message;
+            if (err instanceof Error) {
+                message = err.message;
+            } else {
+                message = String(err);
+            }
+            setLoginError(message);
         }
     };
 
