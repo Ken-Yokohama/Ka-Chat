@@ -1,8 +1,8 @@
 export interface Chats {
     author?: string;
     ids?: string[];
-    messages?: string;
-    timestamp?: Date;
+    message?: string;
+    timestamp?: any;
     id?: string;
 }
 

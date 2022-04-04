@@ -2,15 +2,25 @@ import { Avatar } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { auth } from "../firebase-config";
+import { Chats, User } from "../model";
 
-function ChatMain({ chatObjArray, registeredUsers, friendEmail }) {
-    const [orderedObjArray, setOrderedObjArray] = useState(null);
+interface Props {
+    chatObjArray: Chats[] | null;
+    registeredUsers: User[];
+    friendEmail: string | null;
+}
+
+function ChatMain({ chatObjArray, registeredUsers, friendEmail }: Props) {
+    const [orderedObjArray, setOrderedObjArray] = useState<Chats[] | null>(
+        null
+    );
 
     useEffect(() => {
         if (!chatObjArray) return;
-        const orderArray = chatObjArray.sort(
-            (a, b) => b.timestamp - a.timestamp
+        const orderArray = chatObjArray?.sort(
+            (a, b) => b?.timestamp - a?.timestamp
         );
+        console.log(orderArray);
         setOrderedObjArray(orderArray);
     }, [chatObjArray]);
 
@@ -40,18 +50,19 @@ function ChatMain({ chatObjArray, registeredUsers, friendEmail }) {
                             sx={{
                                 padding: "1rem 0 0 1rem",
                                 display:
-                                    chatObj?.author ==
-                                        auth?.currentUser?.email && "none",
+                                    chatObj?.author == auth?.currentUser?.email
+                                        ? "none"
+                                        : "",
                             }}
                         >
                             {friendEmail && (
                                 <Avatar
                                     src={
-                                        registeredUsers.length != 0
+                                        registeredUsers?.length != 0
                                             ? registeredUsers?.find(
                                                   ({ user }) =>
                                                       user == friendEmail
-                                              ).avatar
+                                              )?.avatar
                                             : ""
                                     }
                                 />
