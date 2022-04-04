@@ -21,6 +21,7 @@ Ka-Chat is a Full-Stack Realtime Chat Application created using React in the Fro
 ### Technologies & Templates Used
 | Technologies | Usage                                      |
 | ----------------- | ------------------------------------------------ |
+| Typesript | Compiler and Error Detection |
 | React Router Dom | Navigation & Routing |
 | Material UI | CSS Components, Styles & Icons       |
 | Firebase Google Authentication      | Login & Authentication      |
@@ -74,3 +75,10 @@ V1.2 31 Mar '22 - Pre Deployment and Deployment
 - Added Favicons and Webpage Title
 - Converted Webpage from using 100vh to 100% to be more responsive for ios devices
 - Deployed Website
+
+V 1.3 4 Apr '22 - Typescript
+
+- Converted All .JSX files and .JS into .TSX and .TS Respectively
+- Manually Installed and Setup Typescript Config File
+- Handled All Possible Errors for each data being used
+- Created External Interface Models for Props and Data to be Fetched 
