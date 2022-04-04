@@ -5,18 +5,28 @@ import { db } from "../firebase-config";
 import ChatContainer from "./ChatContainer";
 import UserMenu from "./UserMenu";
 
-function Main(props) {
+interface user {
+    avatar?: string;
+    timestamp?: Date;
+    user?: string;
+    id?: string;
+}
+
+function Main() {
     const [showMenu, setShowMenu] = useState(true);
 
-    const [registeredUsers, setRegisteredUsers] = useState([]);
+    const [registeredUsers, setRegisteredUsers] = useState<user[]>([]);
 
     const usersCollectionRef = collection(db, "users");
 
-    useEffect(async () => {
-        const users = await getDocs(usersCollectionRef);
-        setRegisteredUsers(
-            users.docs.map((user) => ({ ...user.data(), id: user.id }))
-        );
+    useEffect(() => {
+        const getAllUsers = async () => {
+            const users = await getDocs(usersCollectionRef);
+            setRegisteredUsers(
+                users.docs.map((user) => ({ ...user.data(), id: user.id }))
+            );
+        };
+        getAllUsers();
     }, []);
 
     const [friendUid, setFriendUid] = useState(null);
