@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Avatar, Paper } from "@mui/material";
+import { User } from "../model";
 
-function ChatHeading({ setShowMenu, friendEmail, registeredUsers }) {
+interface Props {
+    setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
+    friendEmail: string | null;
+    registeredUsers: User[];
+}
+
+function ChatHeading({ setShowMenu, friendEmail, registeredUsers }: Props) {
     return (
         <Paper
             sx={{
@@ -28,10 +35,10 @@ function ChatHeading({ setShowMenu, friendEmail, registeredUsers }) {
                 {friendEmail && (
                     <Avatar
                         src={
-                            registeredUsers.length != 0
+                            registeredUsers?.length != 0
                                 ? registeredUsers?.find(
                                       ({ user }) => user == friendEmail
-                                  ).avatar
+                                  )?.avatar
                                 : ""
                         }
                     />

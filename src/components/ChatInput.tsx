@@ -5,13 +5,19 @@ import React, { useState } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../firebase-config";
 
-function ChatInput({ friendUid, currentChatId }) {
+interface Props {
+    friendUid: string | null;
+    currentChatId: string | null;
+}
+
+function ChatInput({ friendUid, currentChatId }: Props) {
     const [loadingButton, setLoadingButton] = useState(false);
 
     const [inputMessage, setInputMessage] = useState("");
 
     const handleSendMessage = async () => {
         if (!inputMessage) return;
+        if (!currentChatId) return;
         setLoadingButton(true);
         try {
             const nestedChatsCollectionRef = collection(
@@ -30,7 +36,11 @@ function ChatInput({ friendUid, currentChatId }) {
             setInputMessage("");
             setLoadingButton(false);
         } catch (err) {
-            console.log(err.message);
+            if (err instanceof Error) {
+                console.log(err.message);
+            } else {
+                console.log(String(err));
+            }
             setLoadingButton(false);
         }
     };
